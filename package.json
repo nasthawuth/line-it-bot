@@ -1,0 +1,19 @@
+{
+  "name": "line-it-bot",
+  "version": "1.0.0",
+  "description": "Line OA IT Support Bot - Phase 1",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.80.0",
+    "@line/bot-sdk": "^9.3.0",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4"
+  }
+}
