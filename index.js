@@ -14,9 +14,9 @@ app.use('/webhook', webhookRouter);
 
 // health check
 app.get('/', (req, res) => {
-  res.send('Line IT Support Bot is running 🤖');
+    res.send('Line IT Support Bot is running 🤖');
 });
 
 app.listen(PORT, () => {
-  console.log(`Server started on port ${PORT}`);
+    console.log(`Server started on port ${PORT}`);
 });

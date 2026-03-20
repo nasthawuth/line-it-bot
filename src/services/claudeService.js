@@ -2,7 +2,7 @@ const Anthropic = require('@anthropic-ai/sdk');
 const { retrieveContext } = require('./ragService');
 
 const client = new Anthropic({
-  apiKey: process.env.ANTHROPIC_API_KEY,
+    apiKey: process.env.ANTHROPIC_API_KEY,
 });
 
 // System prompt สำหรับ IT Support
@@ -32,44 +32,44 @@ const conversationHistory = new Map();
  * @returns {string} - คำตอบจาก Claude
  */
 const askClaude = async (userId, userMessage) => {
-  try {
-    // โหลด history ของ user นี้ (หรือสร้างใหม่)
-    if (!conversationHistory.has(userId)) {
-      conversationHistory.set(userId, []);
+    try {
+        // โหลด history ของ user นี้ (หรือสร้างใหม่)
+        if (!conversationHistory.has(userId)) {
+            conversationHistory.set(userId, []);
+        }
+        const history = conversationHistory.get(userId);
+
+        // ค้นหา context จากเอกสารนโยบาย/คู่มือ
+        const context = retrieveContext(userMessage);
+        const systemPrompt = context
+            ? `${IT_SUPPORT_PROMPT}\n\n=== ข้อมูลจากเอกสารบริษัท ===\n${context}`
+            : IT_SUPPORT_PROMPT;
+
+        // เพิ่มข้อความ user เข้า history
+        history.push({ role: 'user', content: userMessage });
+
+        const response = await client.messages.create({
+            model: 'claude-haiku-4-5-20251001',
+            max_tokens: 1024,
+            system: systemPrompt,
+            messages: history,
+        });
+
+        const replyText = response.content[0].text;
+
+        // เพิ่มคำตอบ assistant เข้า history
+        history.push({ role: 'assistant', content: replyText });
+
+        // จำกัดไม่เกิน MAX_HISTORY คู่ (user+assistant = 2 entries)
+        if (history.length > MAX_HISTORY * 2) {
+            history.splice(0, 2);
+        }
+
+        return replyText;
+    } catch (err) {
+        console.error('Claude API error:', err.message);
+        return 'ขออภัย ระบบขัดข้องชั่วคราว กรุณาลองใหม่อีกครั้ง หรือติดต่อ IT Support โดยตรงครับ';
     }
-    const history = conversationHistory.get(userId);
-
-    // ค้นหา context จากเอกสารนโยบาย/คู่มือ
-    const context = retrieveContext(userMessage);
-    const systemPrompt = context
-      ? `${IT_SUPPORT_PROMPT}\n\n=== ข้อมูลจากเอกสารบริษัท ===\n${context}`
-      : IT_SUPPORT_PROMPT;
-
-    // เพิ่มข้อความ user เข้า history
-    history.push({ role: 'user', content: userMessage });
-
-    const response = await client.messages.create({
-      model: 'claude-haiku-4-5-20251001',
-      max_tokens: 1024,
-      system: systemPrompt,
-      messages: history,
-    });
-
-    const replyText = response.content[0].text;
-
-    // เพิ่มคำตอบ assistant เข้า history
-    history.push({ role: 'assistant', content: replyText });
-
-    // จำกัดไม่เกิน MAX_HISTORY คู่ (user+assistant = 2 entries)
-    if (history.length > MAX_HISTORY * 2) {
-      history.splice(0, 2);
-    }
-
-    return replyText;
-  } catch (err) {
-    console.error('Claude API error:', err.message);
-    return 'ขออภัย ระบบขัดข้องชั่วคราว กรุณาลองใหม่อีกครั้ง หรือติดต่อ IT Support โดยตรงครับ';
-  }
 };
 
 module.exports = { askClaude };

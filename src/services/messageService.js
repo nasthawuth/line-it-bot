@@ -6,19 +6,19 @@ const { lineClient } = require('../config/line');
  * @param {string} text - ข้อความที่จะตอบกลับ
  */
 const replyText = async (replyToken, text) => {
-  try {
-    await lineClient.replyMessage({
-      replyToken,
-      messages: [
-        {
-          type: 'text',
-          text,
-        },
-      ],
-    });
-  } catch (err) {
-    console.error('replyText error:', err.message);
-  }
+    try {
+        await lineClient.replyMessage({
+            replyToken,
+            messages: [
+                {
+                    type: 'text',
+                    text,
+                },
+            ],
+        });
+    } catch (err) {
+        console.error('replyText error:', err.message);
+    }
 };
 
 module.exports = { replyText };
