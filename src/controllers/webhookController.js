@@ -13,7 +13,8 @@ const handleWebhook = async (req, res) => {
 
   for (const event of events) {
     try {
-      if (event.type === 'message' && event.message.type === 'text') {
+      // ตอบเฉพาะ chat ส่วนตัว (user) เท่านั้น — ไม่ตอบในกลุ่มหรือห้อง
+      if (event.type === 'message' && event.message.type === 'text' && event.source.type === 'user') {
         await handleTextMessage(event);
       }
     } catch (err) {
