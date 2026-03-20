@@ -40,7 +40,7 @@ Line Platform
 | Runtime | Node.js | 20+ |
 | Framework | Express.js | 4.x |
 | Line SDK | @line/bot-sdk | 9.x |
-| AI | Claude Opus (Anthropic) | claude-opus-4-6 |
+| AI | Claude Haiku (Anthropic) | claude-haiku-4-5-20251001 |
 | Hosting | Railway | - |
 | Env | dotenv | 16.x |
 
@@ -159,13 +159,13 @@ ngrok http 3000    # expose localhost
 
 ### เปลี่ยน AI Model
 
-แก้ไขได้ที่ `src/services/claudeService.js` บรรทัด `model: 'claude-opus-4-6'`
+แก้ไขได้ที่ `src/services/claudeService.js` บรรทัด `model: 'claude-haiku-4-5-20251001'`
 
 | Model | ความสามารถ | ราคา |
 |---|---|---|
 | `claude-opus-4-6` | สูงสุด | แพงสุด |
 | `claude-sonnet-4-6` | กลาง | กลาง |
-| `claude-haiku-4-5-20251001` | เร็ว/เบา | ถูกสุด |
+| `claude-haiku-4-5-20251001` | เร็ว/เบา | ถูกสุด ✅ ใช้อยู่ |
 
 ---
 
@@ -182,23 +182,22 @@ ngrok http 3000    # expose localhost
 
 ### 8.2 Claude API (Anthropic)
 
-**claude-opus-4-6 ราคาต่อ 1 ล้าน tokens:**
+**ราคาต่อ 1 ล้าน tokens (เปรียบเทียบ model):**
 
-| | ราคา |
-|---|---|
-| Input tokens | $15 |
-| Output tokens | $75 |
+| Model | Input | Output |
+|---|---|---|
+| claude-opus-4-6 | $15 | $75 |
+| claude-sonnet-4-6 | $3 | $15 |
+| **claude-haiku-4-5** ✅ | **$0.80** | **$4** |
 
-**ประมาณค่าใช้จ่ายต่อเดือน:**
+**ประมาณค่าใช้จ่ายต่อเดือน (claude-haiku ที่ใช้อยู่):**
 
-| จำนวนข้อความ/เดือน | Input (est.) | Output (est.) | ค่าใช้จ่าย (USD) | ค่าใช้จ่าย (THB ~35฿) |
-|---|---|---|---|---|
-| 500 msg | 25K tokens | 100K tokens | ~$8 | ~280฿ |
-| 1,000 msg | 50K tokens | 200K tokens | ~$16 | ~560฿ |
-| 3,000 msg | 150K tokens | 600K tokens | ~$47 | ~1,645฿ |
-| 5,000 msg | 250K tokens | 1M tokens | ~$79 | ~2,765฿ |
-
-> ลด cost ได้ด้วยการเปลี่ยนเป็น `claude-haiku-4-5-20251001` (ถูกกว่า ~20x) หากคำถามไม่ซับซ้อน
+| จำนวนข้อความ/เดือน | ค่าใช้จ่าย (USD) | ค่าใช้จ่าย (THB ~35฿) |
+|---|---|---|
+| 500 msg | ~$0.05 | ~2฿ |
+| 1,000 msg | ~$0.10 | ~4฿ |
+| 3,000 msg | ~$0.30 | ~11฿ |
+| 5,000 msg | ~$0.50 | ~18฿ |
 
 ### 8.3 Line OA (Messaging)
 
@@ -211,18 +210,97 @@ ngrok http 3000    # expose localhost
 > Reply Message (ตอบกลับ) **ไม่นับ quota** — นับเฉพาะ Push Message (ส่งก่อน)
 > Bot นี้ใช้แค่ Reply → **ใช้ Free plan ได้ตลอด**
 
-### 8.4 สรุปค่าใช้จ่ายรายเดือน
+### 8.4 สรุปค่าใช้จ่ายรายเดือน (claude-haiku)
 
 | รายการ | ค่าใช้จ่าย |
 |---|---|
 | Railway Hobby | $5 (~175฿) |
-| Claude API (1,000 msg/เดือน) | ~$16 (~560฿) |
+| Claude Haiku API (1,000 msg/เดือน) | ~$0.10 (~4฿) |
 | Line OA (Reply only) | ฿0 |
-| **รวม** | **~$21/เดือน (~735฿)** |
+| **รวม** | **~$5.10/เดือน (~180฿)** |
+
+> ประหยัดกว่า claude-opus ถึง **~97%** (~735฿ → ~180฿/เดือน)
 
 ---
 
-## 9. ความปลอดภัย
+## 9. Git และ GitHub
+
+### ตั้งค่าครั้งแรก (บน SMB/Network Drive)
+
+```bash
+# อนุญาต git ใน network path
+git config --global --add safe.directory '//Mac/Home/Documents/PY/LineAO-Project/line-it-bot'
+
+# ตั้ง identity (local เพราะ SMB ไม่รับ global)
+git config user.email "nasthawuth@gmail.com"
+git config user.name "Nasthawuth"
+```
+
+### สร้าง Repo และ Push ครั้งแรก
+
+```bash
+git add .gitignore .env.example index.js package.json package-lock.json src/
+git commit -m "ข้อความอธิบาย"
+git branch -M main
+git remote add origin https://github.com/nasthawuth/line-it-bot.git
+git push -u origin main
+```
+
+> **หมายเหตุ:** ห้าม `git add .env` — ไฟล์นี้มี API Keys ห้าม commit เด็ดขาด
+
+### Push ครั้งต่อไป (Auto Deploy ไปยัง Railway)
+
+```bash
+git add .
+git commit -m "อธิบาย changes"
+git push origin main
+```
+
+Railway จะ detect การ push และ deploy อัตโนมัติภายใน 1-2 นาที
+
+### เช็คสถานะหลัง Push
+
+- Railway Dashboard → **Deployments** → สถานะต้องเป็น **Success** (สีเขียว)
+- ดู commit message ว่าตรงกับที่ push ล่าสุด
+- ทดสอบ URL: `https://line-it-bot-production.up.railway.app/`
+
+---
+
+## 10. Railway
+
+### Login และการชำระเงิน
+
+| รายการ | วิธี |
+|---|---|
+| Login | ใช้ GitHub Account ได้เลย |
+| ชำระเงิน | ต้องใส่บัตรเครดิต/เดบิต แยกต่างหาก |
+
+### Plan
+
+| Plan | ราคา | หมายเหตุ |
+|---|---|---|
+| Trial | ฟรี $5 | ใช้ได้ครั้งเดียว หมดแล้วหยุด |
+| **Hobby** | **$5/เดือน** | ✅ แนะนำ — bot รันตลอด |
+| Pro | $20/เดือน | traffic สูง / หลาย service |
+
+### ตั้งค่า Environment Variables
+
+Railway Dashboard → Project → **Variables** → เพิ่ม:
+```
+LINE_CHANNEL_ACCESS_TOKEN=...
+LINE_CHANNEL_SECRET=...
+ANTHROPIC_API_KEY=...
+```
+
+### เช็คว่า Deploy สำเร็จ
+
+1. Railway Dashboard → แท็บ **Deployments**
+2. สถานะต้องเป็น **Success** (สีเขียว)
+3. เปิด `https://line-it-bot-production.up.railway.app/` ต้องเห็น "Line IT Support Bot is running"
+
+---
+
+## 11. ความปลอดภัย
 
 - ✅ Verify Line signature ทุก request
 - ✅ API Keys เก็บใน Environment Variables (ไม่ hardcode)
@@ -231,7 +309,7 @@ ngrok http 3000    # expose localhost
 
 ---
 
-## 10. Phase ถัดไป (Roadmap)
+## 12. Phase ถัดไป (Roadmap)
 
 | Phase | Feature | สถานะ |
 |---|---|---|
