@@ -1,9 +1,13 @@
 require('dotenv').config();
 const express = require('express');
 const webhookRouter = require('./src/routes/webhook');
+const { loadKnowledgeBase } = require('./src/services/ragService');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+// โหลดเอกสารนโยบาย/คู่มือตอน startup
+loadKnowledgeBase();
 
 // route /webhook
 app.use('/webhook', webhookRouter);

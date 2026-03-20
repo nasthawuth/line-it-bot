@@ -1,4 +1,5 @@
 const Anthropic = require('@anthropic-ai/sdk');
+const { retrieveContext } = require('./ragService');
 
 const client = new Anthropic({
   apiKey: process.env.ANTHROPIC_API_KEY,
@@ -38,13 +39,19 @@ const askClaude = async (userId, userMessage) => {
     }
     const history = conversationHistory.get(userId);
 
+    // ค้นหา context จากเอกสารนโยบาย/คู่มือ
+    const context = retrieveContext(userMessage);
+    const systemPrompt = context
+      ? `${IT_SUPPORT_PROMPT}\n\n=== ข้อมูลจากเอกสารบริษัท ===\n${context}`
+      : IT_SUPPORT_PROMPT;
+
     // เพิ่มข้อความ user เข้า history
     history.push({ role: 'user', content: userMessage });
 
     const response = await client.messages.create({
       model: 'claude-haiku-4-5-20251001',
       max_tokens: 1024,
-      system: IT_SUPPORT_PROMPT,
+      system: systemPrompt,
       messages: history,
     });
 
