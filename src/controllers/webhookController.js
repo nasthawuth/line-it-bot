@@ -114,7 +114,7 @@ const routeToIT = async (displayName, summary, category) => {
         `❓ ปัญหา: ${summary}`,
         `🏷️ Category: ${category}`,
         ownerLabel,
-        `⏰ เวลา: ${new Date().toLocaleString('th-TH')}`,
+        `⏰ เวลา: ${new Date().toLocaleString('th-TH', { timeZone: 'Asia/Bangkok' })}`,
         '──────────────────',
         '⚠️ Bot ไม่สามารถแก้ไขได้',
         'กรุณาติดต่อ User โดยตรงค่ะ',
