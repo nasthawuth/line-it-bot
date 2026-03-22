@@ -85,7 +85,7 @@ const handleTextMessage = async (event) => {
         if (!result.resolved) {
             const profile = await getLineProfile(userId);
             const displayName = profile?.displayName || userId;
-            await routeToIT(displayName, result.summary, result.category);
+            await routeToIT(displayName, result.summary, result.category, userText);
         }
     } finally {
         processingUsers.delete(userId);
@@ -99,7 +99,7 @@ const handleTextMessage = async (event) => {
  * @param {string} summary - สรุปปัญหา
  * @param {string} category - category จาก Claude
  */
-const routeToIT = async (displayName, summary, category) => {
+const routeToIT = async (displayName, summary, category, originalMessage = '') => {
     const owner = findITOwner(category);
     const targetId = owner
         ? owner.line_user_id
@@ -114,18 +114,28 @@ const routeToIT = async (displayName, summary, category) => {
         ? `📌 ส่งหา ${owner.name} โดยตรง`
         : `📌 ส่งเข้า IT Team`;
 
-    const alertMessage = [
+    const lines = [
         '🚨 IT Support Alert',
         '──────────────────',
         `👤 พนักงาน: ${displayName}`,
         `❓ ปัญหา: ${summary}`,
+    ];
+
+    // ถ้า category เป็น unknown ให้แสดงข้อความดิบของ user ด้วย
+    if (category === 'unknown' && originalMessage) {
+        lines.push(`💬 ข้อความ: "${originalMessage}"`);
+    }
+
+    lines.push(
         `🏷️ Category: ${category}`,
         ownerLabel,
         `⏰ เวลา: ${new Date().toLocaleString('th-TH', { timeZone: 'Asia/Bangkok' })}`,
         '──────────────────',
         '⚠️ Bot ไม่สามารถแก้ไขได้',
         'กรุณาติดต่อ User โดยตรงค่ะ',
-    ].join('\n');
+    );
+
+    const alertMessage = lines.join('\n');
 
     await pushText(targetId, alertMessage);
     console.log(`[ROUTE] → ${owner ? owner.name : 'Group IT'} (category: ${category})`);
