@@ -5,7 +5,7 @@
 const CATEGORY_ROUTING = {
     'network':     { name: 'คุณเดชาพล (DC)',     line_user_id: 'U5f0d6d984b5cc8a3266c7068b818f694' },
     'server':      { name: 'คุณพินิต',            line_user_id: 'Ue6dfb633d5624e4a095100e5ae343f67' },
-    'hardware':    { name: 'คุณสุวัฒน์',          line_user_id: 'U69d43423b5fba3af4004747b18e2598b' },
+    'hardware':    { name: 'คุณเอกฉันท์',          line_user_id: 'U003d2baf234d63507eae18022fd06bff' },
     'software':    { name: 'คุณเดชาพล (DC)',     line_user_id: 'U5f0d6d984b5cc8a3266c7068b818f694' },
     'email':       { name: 'คุณปรมา',             line_user_id: 'Ub2f49f1fb2a6845ba77ea4a5bc0bc10e' },
     'sap_b1':      { name: 'คุณเดวิทย์ (เดย์)',  line_user_id: 'U827d51be3e76c151d11fb57dc2e854ea' },
