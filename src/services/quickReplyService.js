@@ -18,7 +18,7 @@ const KEYWORDS_HANDLED_BY_LINE_OA = new Set([
     'stock', 'GR/GI',
     'TeamPowerBI', 'supportPowerbi',
     'SupportEunit', 'teameeunit', 'eunit',
-    'คู่มื', 'manual',
+    'คู่มือ', 'manual',
 ]);
 
 /**
