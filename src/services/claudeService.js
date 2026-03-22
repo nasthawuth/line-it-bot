@@ -116,14 +116,21 @@ resolved:
 - true  = ให้คำแนะนำแก้ไขเองได้ผ่าน chat
 - false = ต้องให้ IT เข้าไปช่วยจริงๆ (เช่น ซ่อมเครื่อง, reset password จริง, ติดตั้ง software)
 
-category ต้องเป็นหนึ่งใน:
-- "network"     = Network, WiFi, VPN, Internet
+category ต้องเป็นหนึ่งใน (เลือกให้ตรงที่สุด):
+- "network"     = Network, WiFi, VPN, Internet, Fingerscan
 - "server"      = Server, Database, Backup
 - "hardware"    = Hardware, Printer, Computer, Scanner
-- "software"    = Software, License, OS, Anti Virus
-- "application" = SAP, eUnite, eMemo, PR/PO, Expense System
-- "ITMIS"       = TMS, TUG Request, Evaluate Driver, PMS, BILLING SAP
-- "unknown"     = ไม่ชัดเจน`;
+- "software"    = Software, License, OS, Anti Virus, Windows, Remote Desktop
+- "email"       = Email, Microsoft 365, Outlook, Microsoft Office
+- "sap_b1"      = SAP Business One, SAP B1
+- "sap_po"      = SAP PR/PO, eMemo, PMS
+- "sap_fi"      = FI/CO SAP, SAP ECC6, e-Tax, SAP FI, SAP CO
+- "eunite"      = eUnite, Expense System
+- "tms"         = TMS, TUG Request, BILLING SAP
+- "itmis"       = ITMIS
+- "fleetcard"   = Fleetcard, Expiredoc
+- "application" = ระบบแอปพลิเคชันอื่นๆ ที่ไม่อยู่ในรายการข้างต้น
+- "unknown"     = ไม่ชัดเจน หรือไม่ใช่ปัญหา IT`;
 
 // เก็บประวัติการสนทนาต่อ userId (in-memory)
 const MAX_HISTORY = 10;
