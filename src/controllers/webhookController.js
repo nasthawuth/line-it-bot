@@ -1,6 +1,7 @@
 const { replyText, pushText, getLineProfile } = require('../services/messageService');
 const { askClaude } = require('../services/claudeService');
 const { findITOwner } = require('../services/staffService');
+const { isHandledByLineOA } = require('../services/quickReplyService');
 
 // ── Duplicate Event Prevention ──────────────────────────────────────────────
 // เก็บ eventId ที่ผ่านมาแล้ว (TTL 5 นาที)
@@ -68,6 +69,12 @@ const handleTextMessage = async (event) => {
 
     try {
         console.log(`[MSG] ${userId}: ${userText}`);
+
+        // ถ้า keyword นี้ Line OA จัดการแล้ว → skip ไม่ต้องส่งไป Claude
+        if (isHandledByLineOA(userText)) {
+            console.log(`[SKIP] Line OA keyword: "${userText}"`);
+            return;
+        }
 
         const result = await askClaude(userId, userText);
 
