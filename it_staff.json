@@ -1,109 +1,109 @@
 {
   "it_staff": [
     {
-      "name": "คุณ ณัฐวุฒิ",
+      "name": "คุณณัฐวุฒิ",
       "line_user_id": "Ub5bd3a349edf0fcb1172214aa0a11a36",
       "category": ["Power BI", "eUnite", "SAP", "SAP B1"],
       "is_active": true
     },
     {
-      "name": "คุณ พินิต",
+      "name": "คุณพินิต",
       "line_user_id": "Ue6dfb633d5624e4a095100e5ae343f67",
       "category": ["server", "database", "backup"],
       "is_active": true
     },
     {
-      "name": "คุณ สุวัฒน์",
+      "name": "คุณสุวัฒน์",
       "line_user_id": "U69d43423b5fba3af4004747b18e2598b",
       "category": ["hardware", "printer", "computer"],
       "is_active": true
     },
     {
-      "name": "คุณ เดชาพล",
+      "name": "คุณเดชาพล",
       "line_user_id": "U5f0d6d984b5cc8a3266c7068b818f694",
       "category": ["software", "license", "os"],
       "is_active": true
     },
     {
-      "name": "คุณ จรินทร์",
+      "name": "คุณจรินทร์",
       "line_user_id": "U9b1c3618acc55af01b7db5da15eb3b6d",
       "category": ["application", "PR/PO", "eMemo", "PMS SYSTEM"],
       "is_active": true
     },
     {
-      "name": "คุณ ลิขิต",
+      "name": "คุณลิขิต",
       "line_user_id": "U255efeba6f64d11a9c61453ae0367de5",
       "category": ["SAP PS", "ค่าเที่ยวคนรถ", "MASTER DRIVER"],
       "is_active": true
     },
     {
-      "name": "คุณ ปรมา",
+      "name": "คุณปรมา",
       "line_user_id": "Ub2f49f1fb2a6845ba77ea4a5bc0bc10e",
       "category": ["eMail", "hardware", "printer", "computer"],
       "is_active": true
     },
     {
-      "name": "คุณ ศิวพร",
+      "name": "คุณศิวพร",
       "line_user_id": "U9e5e30eb611574c4058971cae389eebe",
       "category": ["ระบบ TMS", "ระบบ TUG Request", "BILLING SAP", "Power BI"],
       "is_active": true
     },
     {
-      "name": "คุณ อรัญ",
+      "name": "คุณอรัญ",
       "line_user_id": "Ub85c92871125ad71a55495de69b19fd8",
       "category": ["software", "printer", "os", "computer", "Network", "WIFI"],
       "is_active": true
     },
     {
-      "name": "คุณ เอกฉันท์",
+      "name": "คุณเอกฉันท์",
       "line_user_id": "U003d2baf234d63507eae18022fd06bff",
       "category": ["software", "license", "os", "Anti Virus"],
       "is_active": true
     },
     {
-      "name": "คุณ วิภาวรรณ",
+      "name": "คุณวิภาวรรณ",
       "line_user_id": "Ua689843fcd99d2757e95914d7a957145",
       "category": ["software", "license", "os", "PR/PO SAP"],
       "is_active": true
     },
     {
-      "name": "คุณ เดวิทย์",
+      "name": "คุณเดวิทย์",
       "line_user_id": "U827d51be3e76c151d11fb57dc2e854ea",
       "category": ["software", "application", "license", "os", "SAP B1"],
       "is_active": true
     },
     {
-      "name": "คุณ วนิดา",
+      "name": "คุณวนิดา",
       "line_user_id": "U8eaf5289a72713fb376c60e42f5f0988",
       "category": ["software", "license", "os"],
       "is_active": true
     },
     {
-      "name": "คุณ อภิวัฒน์",
+      "name": "คุณอภิวัฒน์",
       "line_user_id": "U0500cbb103b911443a63eebb5c7899c8",
       "category": ["FI/CO SAP", "e-Tax", "SAP ECC6"],
       "is_active": true
     },
     {
-      "name": "คุณ โศภิศว์",
+      "name": "คุณโศภิศว์",
       "line_user_id": "Uf7aa58bb00d50e6259db2b4a500128ff",
       "category": ["eUnite", "Expense System", "Evaluate Driver"],
       "is_active": true
     },
     {
-      "name": "คุณ ศุภฤกษ์",
+      "name": "คุณศุภฤกษ์",
       "line_user_id": "U5e385c7db36d3219aee766dc021f317f",
       "category": ["software", "printer", "os", "WIFI", "Network"],
       "is_active": true
     },
     {
-      "name": "คุณ เพ็ญนภา",
+      "name": "คุณเพ็ญนภา",
       "line_user_id": "U73acb409599ab6c5b09d0fe4bcc808d0",
       "category": ["ITMIS"],
       "is_active": true
     },
     {
-      "name": "คุณ พัชราภรณ์",
+      "name": "คุณพัชราภรณ์",
       "line_user_id": "U3cef6d3d23a5c4fb1b7e87e78a9fb553",
       "category": ["application"],
       "is_active": true
