@@ -4,21 +4,22 @@
  *
  * วิธีเพิ่ม/ลด keyword: แก้ไข KEYWORDS_HANDLED_BY_LINE_OA
  */
+// เก็บเป็น lowercase ทั้งหมด เพื่อให้เช็คแบบ case-insensitive
 const KEYWORDS_HANDLED_BY_LINE_OA = new Set([
-    'IT', 'MemberIT', 'ITSC', 'ITNFC',
+    'it', 'memberit', 'itsc', 'itnfc',
     '1', '3', '4', '5', '6', '7', '8',
-    'vpn', 'link', 'Link',
+    'vpn', 'link',
     'webmail', 'webmail2',
     'setup email', 'mailphone', 'mailsetup',
     'fleetcard', 'servicelog', 'expiredoc', 'account',
     'fi', 'co', 'fico', 'fi/co', 'wbs', 'll',
-    'shipment', 'SD', 'SAP/SD',
-    'TeamSapB1', 'MM', 'TeamMM',
-    'eMemo', 'teamintranet',
-    'stock', 'GR/GI',
-    'TeamPowerBI', 'supportPowerbi',
-    'SupportEunit', 'teameeunit', 'eunit',
-    'คู่มือ', 'manual','memberit'
+    'shipment', 'sd', 'sap/sd',
+    'teamsapb1', 'mm', 'teammm',
+    'ememo', 'teamintranet',
+    'stock', 'gr/gi',
+    'teampowerbi', 'supportpowerbi',
+    'supporteunit', 'teameeunit', 'eunit',
+    'คู่มือ', 'manual',
 ]);
 
 /**
@@ -28,9 +29,8 @@ const KEYWORDS_HANDLED_BY_LINE_OA = new Set([
  */
 function isHandledByLineOA(text) {
     if (!text) return false;
-    const trimmed = text.trim();
-    // เช็คแบบ case-sensitive ตามที่ Line OA กำหนด
-    return KEYWORDS_HANDLED_BY_LINE_OA.has(trimmed);
+    // lowercase ก่อนเช็ค ให้ case-insensitive
+    return KEYWORDS_HANDLED_BY_LINE_OA.has(text.trim().toLowerCase());
 }
 
 module.exports = { isHandledByLineOA };
